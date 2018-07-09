@@ -1,5 +1,6 @@
 Usage
 
+```html
 <div class="audio ct-audio-player">
     <audio preload="none">
         <source src="..." type="audio/mpeg">
@@ -11,3 +12,4 @@ Usage
     player = new CtPlayer(document.querySelector(".ct-audio-player"));
     player.initPlayer();
 </script>
+```

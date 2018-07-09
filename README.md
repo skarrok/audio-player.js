@@ -13,3 +13,11 @@ Usage
     player.initPlayer();
 </script>
 ```
+
+or with jquery
+```html
+    $('.ct-audio-player').each(function() {
+    player = new CtPlayer(this);
+    player.initPlayer();
+});
+```

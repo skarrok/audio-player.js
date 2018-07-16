@@ -78,6 +78,8 @@ function CtPlayer(el) {
             this.playpauseBtn.style.display = 'none';
             this.loading.style.visibility = 'visible';
             this.loading.style.display = 'block';
+            var url = this.player.querySelector('source').getAttribute('src');
+            this.downloadBtn.href = url;
         });
         this.player.addEventListener('canplay', () => {
             this.playpauseBtn.style.display = 'block';

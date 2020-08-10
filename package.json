@@ -12,6 +12,6 @@
         "example"
     ],
     "dependencies": {
-        "audio-player.js": "git://github.com/katspaugh/wavesurfer.js.git#aaf433ecaf2f032a28a0419401ed56958f67a17e"
+        "wavesurfer.js": "git://github.com/katspaugh/wavesurfer.js.git#aaf433ecaf2f032a28a0419401ed56958f67a17e"
     }
 }

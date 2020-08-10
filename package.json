@@ -1,0 +1,17 @@
+{
+    "name": "cabinet",
+    "description": "Audio Player",
+    "main": "",
+    "authors": [
+        "Ivan Petukhov"
+    ],
+    "homepage": "https://zvonok.com",
+    "private": true,
+    "ignore": [
+        "**/.*",
+        "example"
+    ],
+    "dependencies": {
+        "audio-player.js": "git://github.com/katspaugh/wavesurfer.js.git#aaf433ecaf2f032a28a0419401ed56958f67a17e"
+    }
+}

@@ -1,27 +1,37 @@
-.ct-audio-player {
-  /*width: 400px;*/
-  min-width: 300px;
-  max-width: 800px;
-  height: 50px;
-  box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.07);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-left: 12px;
-  padding-right: 12px;
-  border-radius: 4px;
-  user-select: none;
-  -webkit-user-select: none;
-  background-color: #fff;
+.audiopl-audio-player {
+    min-width: 300px;
+    max-width: 800px;
+    display: flex;
+    height: 50px;
+    box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.07);
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 12px;
+    padding-right: 12px;
+    border-radius: 4px;
+    user-select: none;
+    -webkit-user-select: none;
+    background-color: #fff;
 }
-.ct-audio-player .ct-play-pause-btn {
-  display: none;
-  cursor: pointer;
+
+.audiopl-wave-container {
+  width: 100%;
 }
-.ct-audio-player .ct-loading {
+
+.audiopl-audio-player svg, img {
+  display: block;
+}
+
+.audiopl-loading {
     visibility: hidden;
 }
-.ct-audio-player .ct-spinner {
+
+.audiopl-play-pause-btn {
+    display: none;
+    cursor: pointer;
+}
+
+.audiopl-spinner {
   width: 18px;
   height: 18px;
   background-image: url(../img/loading.png);
@@ -29,19 +39,22 @@
   background-repeat: no-repeat;
   animation: ctspin 0.4s linear infinite;
 }
-.ct-audio-player .ct-slider {
+
+.audiopl-slider {
   flex-grow: 1;
   background-color: #D8D8D8;
   cursor: pointer;
   position: relative;
 }
-.ct-audio-player .ct-slider .ct-progress {
+
+.audiopl-slider .audiopl-progress {
   background-color: #44BFA3;
   border-radius: inherit;
   position: absolute;
   pointer-events: none;
 }
-.ct-audio-player .ct-slider .ct-progress .ct-pin {
+
+.audiopl-slider .audiopl-progress .audiopl-pin {
   height: 16px;
   width: 16px;
   border-radius: 8px;
@@ -50,48 +63,54 @@
   pointer-events: all;
   box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.32);
 }
-.ct-audio-player .ct-controls {
-  font-family: "Roboto", sans-serif;
-  font-size: 16px;
-  line-height: 18px;
-  color: #55606E;
-  display: flex;
-  flex-grow: 1;
-  justify-content: space-between;
-  align-items: center;
-  margin-left: 12px;
-  margin-right: 12px;
+
+.audiopl-controls {
+    display: flex;
+    font-family: "Roboto", sans-serif;
+    font-size: 16px;
+    line-height: 18px;
+    color: #55606E;
+    flex-grow: 1;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 12px;
+    margin-right: 12px;
 }
-.ct-audio-player .ct-controls .ct-slider {
+
+.audiopl-controls .audiopl-slider {
   margin-left: 16px;
   margin-right: 16px;
   border-radius: 2px;
   height: 4px;
 }
-.ct-audio-player .ct-controls .ct-slider .ct-progress {
+
+.audiopl-controls .audiopl-slider .audiopl-progress {
   width: 0;
   height: 100%;
 }
-.ct-audio-player .ct-controls .ct-slider .ct-progress .ct-pin {
+
+.audiopl-controls .audiopl-slider .audiopl-progress .audiopl-pin {
   right: -8px;
   top: -6px;
 }
-.ct-audio-player .ct-controls span {
+
+.audiopl-controls span {
   cursor: default;
 }
-.ct-audio-player .ct-download {
-  margin-left: 12px;
+
+.audiopl-volume {
+    position: relative;
 }
-.ct-audio-player .ct-volume {
-  position: relative;
-}
-.ct-audio-player .ct-volume .ct-volume-btn {
+
+.audiopl-volume .audiopl-volume-btn {
   cursor: pointer;
 }
-.ct-audio-player .ct-volume .ct-volume-btn.open path {
+
+.audiopl-volume .audiopl-volume-btn.open path {
   fill: #44BFA3;
 }
-.ct-audio-player .ct-volume .ct-volume-controls {
+
+.audiopl-volume .audiopl-volume-controls {
   width: 30px;
   height: 135px;
   background-color: rgba(0, 0, 0, 0.62);
@@ -103,27 +122,27 @@
   align-items: center;
   display: flex;
 }
-.ct-audio-player .ct-volume .ct-volume-controls.hidden {
+
+.audiopl-volume .audiopl-volume-controls.hidden {
   display: none;
 }
-.ct-audio-player .ct-volume .ct-volume-controls .ct-slider {
+
+.audiopl-volume .audiopl-volume-controls .audiopl-slider {
   margin-top: 12px;
   margin-bottom: 12px;
   width: 6px;
   border-radius: 3px;
 }
-.ct-audio-player .ct-volume .ct-volume-controls .ct-slider .ct-progress {
+
+.audiopl-volume .audiopl-volume-controls .audiopl-slider .audiopl-progress {
   bottom: 0;
   height: 100%;
   width: 6px;
 }
-.ct-audio-player .ct-volume .ct-volume-controls .ct-slider .ct-progress .ct-pin {
+
+.audiopl-volume .audiopl-volume-controls .audiopl-slider .audiopl-progress .audiopl-pin {
   left: -5px;
   top: -8px;
-}
-
-.ct-audio-player svg, img {
-  display: block;
 }
 
 @keyframes ctspin {
@@ -133,4 +152,14 @@
   to {
     transform: rotateZ(1turn);
   }
+}
+
+.audiopl-download {
+    margin-left: 12px;
+}
+
+.audiopl-wave-container {
+    display: table-cell;
+    margin-left: 12px;
+    margin-right: 12px;
 }

@@ -1,62 +1,65 @@
 function CtPlayer(el) {
     this.container = el;
 
+    this.container.classList.add('audiopl-audio-player');
+
     this.container.insertAdjacentHTML('beforeend',`
-    <div class="ct-loading">
-        <div class="ct-spinner"></div>
+    <div class="audiopl-loading">
+        <div class="audiopl-spinner"></div>
     </div>
-    <div class="ct-play-pause-btn">
+    <div class="audiopl-play-pause-btn">
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="24" viewBox="0 0 18 24">
-            <path fill="#566574" fill-rule="evenodd" d="M18 12L0 24V0" class="ct-play-pause-icon"/>
+            <path fill="#566574" fill-rule="evenodd" d="M18 12L0 24V0" class="audiopl-play-pause-icon"/>
         </svg>
     </div>
 
-    <div class="ct-controls">
-        <span class="ct-current-time">0:00</span>
-        <div class="ct-slider" data-direction="horizontal">
-            <div class="ct-progress">
-                <div class="ct-pin progress-pin" data-method="rewindBind"></div>
-            </div>
+    <div class="audiopl-controls">
+        <span class="audiopl-current-time">0:00</span>
+
+        <div class="audiopl-wave-container">
+            <div class="audiopl-wave-form"></div>
         </div>
-        <span class="ct-total-time">0:00</span>
+
+        <span class="audiopl-total-time">0:00</span>
     </div>
 
-    <div class="ct-volume">
-        <div class="ct-volume-btn">
+    <div class="audiopl-volume">
+        <div class="audiopl-volume-btn">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                <path fill="#566574" fill-rule="evenodd" d="M14.667 0v2.747c3.853 1.146 6.666 4.72 6.666 8.946 0 4.227-2.813 7.787-6.666 8.934v2.76C20 22.173 24 17.4 24 11.693 24 5.987 20 1.213 14.667 0zM18 11.693c0-2.36-1.333-4.386-3.333-5.373v10.707c2-.947 3.333-2.987 3.333-5.334zm-18-4v8h5.333L12 22.36V1.027L5.333 7.693H0z" class="ct-speaker"/>
+                <path fill="#566574" fill-rule="evenodd" d="M14.667 0v2.747c3.853 1.146 6.666 4.72 6.666 8.946 0 4.227-2.813 7.787-6.666 8.934v2.76C20 22.173 24 17.4 24 11.693 24 5.987 20 1.213 14.667 0zM18 11.693c0-2.36-1.333-4.386-3.333-5.373v10.707c2-.947 3.333-2.987 3.333-5.334zm-18-4v8h5.333L12 22.36V1.027L5.333 7.693H0z" class="audiopl-speaker"/>
             </svg>
         </div>
-        <div class="ct-volume-controls hidden">
-            <div class="ct-slider" data-direction="vertical">
-                <div class="ct-progress">
-                    <div class="ct-pin volume-pin" data-method="changeVolumeBind"></div>
+        <div class="audiopl-volume-controls hidden">
+            <div class="audiopl-slider" data-direction="vertical">
+                <div class="audiopl-progress">
+                    <div class="audiopl-pin volume-pin" data-method="changeVolumeBind"></div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="ct-download">
-        <a href="" class="ct-download-btn" target="_blank" download>
+    <div class="audiopl-download">
+        <a href="" class="audiopl-download-btn" target="_blank" download>
             <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 433.5 433.5">
-            <path d="M395.25,153h-102V0h-153v153h-102l178.5,178.5L395.25,153z M38.25,382.5v51h357v-51H38.25z" fill="#566574" class="ct-download-icon" />
+            <path d="M395.25,153h-102V0h-153v153h-102l178.5,178.5L395.25,153z M38.25,382.5v51h357v-51H38.25z" fill="#566574" class="audiopl-download-icon" />
             </svg>
         </a>
     </div>
     `);
 
-    this.playPause = el.querySelector('.ct-play-pause-icon');
-    this.playpauseBtn = el.querySelector('.ct-play-pause-btn');
-    this.loading = el.querySelector('.ct-loading');
-    this.progress = el.querySelector('.ct-progress');
-    this.sliders = el.querySelectorAll('.ct-slider');
-    this.volumeBtn = el.querySelector('.ct-volume-btn');
-    this.volumeControls = el.querySelector('.ct-volume-controls');
-    this.volumeProgress = this.volumeControls.querySelector('.ct-slider .ct-progress');
-    this.player = el.querySelector('audio');
-    this.currentTime = el.querySelector('.ct-current-time');
-    this.totalTime = el.querySelector('.ct-total-time');
-    this.speaker = el.querySelector('.ct-speaker');
-    this.downloadBtn = el.querySelector('.ct-download-btn');
+    this.playPause = el.querySelector('.audiopl-play-pause-icon');
+    this.playpauseBtn = el.querySelector('.audiopl-play-pause-btn');
+    this.loading = el.querySelector('.audiopl-loading');
+    this.progress = el.querySelector('.audiopl-progress');
+    this.sliders = el.querySelectorAll('.audiopl-slider');
+    this.volumeBtn = el.querySelector('.audiopl-volume-btn');
+    this.volumeControls = el.querySelector('.audiopl-volume-controls');
+    this.volumeProgress = this.volumeControls.querySelector('.audiopl-slider .audiopl-progress');
+    this.audioTag = el.querySelector('audio');
+    this.src = this.audioTag.querySelector('source').getAttribute('src');
+    this.currentTime = el.querySelector('.audiopl-current-time');
+    this.totalTime = el.querySelector('.audiopl-total-time');
+    this.speaker = el.querySelector('.audiopl-speaker');
+    this.downloadBtn = el.querySelector('.audiopl-download-btn');
 
     this.draggableClasses = ['ct-pin'];
     this.currentlyDragged = null;
@@ -66,36 +69,7 @@ function CtPlayer(el) {
 
         this.playpauseBtn.addEventListener('click', this.togglePlay.bind(this));
 
-        var url = this.player.querySelector('source').getAttribute('src');
-        this.downloadBtn.href = url;
-
-        this.player.addEventListener('timeupdate', this.updateProgress.bind(this));
-        this.player.addEventListener('volumechange', this.updateVolume.bind(this));
-        this.player.addEventListener('loadedmetadata', () => {
-            this.totalTime.textContent = this.formatTime(this.player.duration);
-        });
-        this.player.addEventListener('loadstart', () => {
-            this.playpauseBtn.style.display = 'none';
-            this.loading.style.visibility = 'visible';
-            this.loading.style.display = 'block';
-            var url = this.player.querySelector('source').getAttribute('src');
-            this.downloadBtn.href = url;
-        });
-        this.player.addEventListener('canplay', () => {
-            this.playpauseBtn.style.display = 'block';
-            this.loading.style.display = 'none';
-        });
-        this.player.addEventListener('ended', () => {
-            this.playPause.attributes.d.value = "M18 12L0 24V0";
-            this.player.currentTime = 0;
-        });
-        this.player.querySelectorAll('source').forEach(source => {
-            source.addEventListener('error', () => {
-                this.playpauseBtn.style.display = 'none';
-                this.loading.style.display = 'block';
-                this.loading.style.visibility = 'hidden';
-            })
-        });
+        this.downloadBtn.href = this.src;
 
         this.volumeBtn.addEventListener('click', () => {
             this.volumeBtn.classList.toggle('open');
@@ -105,20 +79,59 @@ function CtPlayer(el) {
         window.addEventListener('resize', this.directionAware.bind(this));
 
         this.sliders.forEach(slider => {
-            let pin = slider.querySelector('.ct-pin');
+            let pin = slider.querySelector('.audiopl-pin');
             slider.addEventListener('click', this[pin.dataset.method]);
         });
 
         this.directionAware();
 
-        if (this.player.preload != 'auto') {
+        if (this.audioTag.preload != 'auto') {
             this.container.addEventListener('mouseenter', this.loadBind);
         }
+
+        this.wavesurfer = WaveSurfer.create({
+            container: this.container.querySelector('.audiopl-wave-form'),
+            height: 50,
+            normalize: true,
+            barWidth: 3,
+            progressColor: '#44BFA3',
+            waveColor: '#8DD8C7',
+            cursorColor: '#44BFA3',
+            cursorWidth: 2,
+            hideScrollbar: true
+        });
+
+        this.wavesurfer.on('volume', this.updateVolume.bind(this));
+        this.wavesurfer.on('ready', () => {
+            this.totalTime.textContent = this.formatTime(this.wavesurfer.getDuration());
+        });
+        this.wavesurfer.on('loading', () => {
+            this.playpauseBtn.style.display = 'none';
+            this.loading.style.visibility = 'visible';
+            this.loading.style.display = 'block';
+            this.downloadBtn.href = this.src;
+        });
+        this.wavesurfer.on('ready', () => {
+            this.playpauseBtn.style.display = 'block';
+            this.loading.style.display = 'none';
+        });
+        this.wavesurfer.on('audioprocess', this.updateProgress.bind(this));
+
+        this.wavesurfer.on('finish', () => {
+            this.playPause.attributes.d.value = "M18 12L0 24V0";
+            this.wavesurfer.setCurrentTime(0);
+            this.currentTime.textContent = this.formatTime(0);
+        });
+        this.wavesurfer.on('error', () => {
+            this.playpauseBtn.style.display = 'none';
+            this.loading.style.display = 'block';
+            this.loading.style.visibility = 'hidden';
+        });
     };
 
     this.load = function(event) {
-        this.player.load();
         event.target.removeEventListener(event.type, this.loadBind);
+        this.wavesurfer.load(this.src);
     }
 
     this.loadBind = this.load.bind(this);
@@ -164,20 +177,18 @@ function CtPlayer(el) {
     };
 
     this.updateProgress = function () {
-        var current = this.player.currentTime;
-        var percent = (current / this.player.duration) * 100;
-        this.progress.style.width = percent + '%';
-
+        var current = this.wavesurfer. getCurrentTime();
         this.currentTime.textContent = this.formatTime(current);
     };
 
     this.updateVolume = function () {
-        this.volumeProgress.style.height = this.player.volume * 100 + '%';
-        if(this.player.volume >= 0.5) {
+        let volume = this.wavesurfer.getVolume();
+        this.volumeProgress.style.height = volume * 100 + '%';
+        if(volume >= 0.5) {
             this.speaker.attributes.d.value = 'M14.667 0v2.747c3.853 1.146 6.666 4.72 6.666 8.946 0 4.227-2.813 7.787-6.666 8.934v2.76C20 22.173 24 17.4 24 11.693 24 5.987 20 1.213 14.667 0zM18 11.693c0-2.36-1.333-4.386-3.333-5.373v10.707c2-.947 3.333-2.987 3.333-5.334zm-18-4v8h5.333L12 22.36V1.027L5.333 7.693H0z';
-        } else if(this.player.volume < 0.5 && this.player.volume > 0.05) {
+        } else if(volume < 0.5 && volume > 0.05) {
             this.speaker.attributes.d.value = 'M0 7.667v8h5.333L12 22.333V1L5.333 7.667M17.333 11.373C17.333 9.013 16 6.987 14 6v10.707c2-.947 3.333-2.987 3.333-5.334z';
-        } else if(this.player.volume <= 0.05) {
+        } else if(volume <= 0.05) {
             this.speaker.attributes.d.value = 'M0 7.667v8h5.333L12 22.333V1L5.333 7.667';
         }
     };
@@ -214,21 +225,10 @@ function CtPlayer(el) {
         return K;
     };
 
-    this.rewind = function (event) {
-        if(this.inRange(event)) {
-            let time = this.player.duration * this.getCoefficient(event);
-            if (typeof time !== 'number' || !isFinite(time) || time < 0) {
-                return;
-            }
-            this.player.currentTime = time;
-        }
-    };
-
-    this.rewindBind = this.rewind.bind(this);
-
     this.changeVolume = function (event) {
         if(this.inRange(event)) {
-            this.player.volume = this.getCoefficient(event);
+            let volume = this.getCoefficient(event);
+            this.wavesurfer.setVolume(volume);
         }
     };
 
@@ -241,12 +241,12 @@ function CtPlayer(el) {
     };
 
     this.togglePlay = function () {
-        if(this.player.paused) {
-            this.playPause.attributes.d.value = "M0 0h6v24H0zM12 0h6v24h-6z";
-            this.player.play();
-        } else {
+        if(this.wavesurfer.isPlaying()) {
             this.playPause.attributes.d.value = "M18 12L0 24V0";
-            this.player.pause();
+            this.wavesurfer.pause();
+        } else {
+            this.playPause.attributes.d.value = "M0 0h6v24H0zM12 0h6v24h-6z";
+            this.wavesurfer.play();
         }
     };
 

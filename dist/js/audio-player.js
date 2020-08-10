@@ -55,7 +55,6 @@ function CtPlayer(el) {
     this.volumeControls = el.querySelector('.audiopl-volume-controls');
     this.volumeProgress = this.volumeControls.querySelector('.audiopl-slider .audiopl-progress');
     this.audioTag = el.querySelector('audio');
-    this.src = this.audioTag.querySelector('source').getAttribute('src');
     this.currentTime = el.querySelector('.audiopl-current-time');
     this.totalTime = el.querySelector('.audiopl-total-time');
     this.speaker = el.querySelector('.audiopl-speaker');
@@ -69,7 +68,7 @@ function CtPlayer(el) {
 
         this.playpauseBtn.addEventListener('click', this.togglePlay.bind(this));
 
-        this.downloadBtn.href = this.src;
+        this.downloadBtn.href = this.getAudioSrc();
 
         this.volumeBtn.addEventListener('click', () => {
             this.volumeBtn.classList.toggle('open');
@@ -109,7 +108,7 @@ function CtPlayer(el) {
             this.playpauseBtn.style.display = 'none';
             this.loading.style.visibility = 'visible';
             this.loading.style.display = 'block';
-            this.downloadBtn.href = this.src;
+            this.downloadBtn.href = this.getAudioSrc();
         });
         this.wavesurfer.on('ready', () => {
             this.playpauseBtn.style.display = 'block';
@@ -127,11 +126,25 @@ function CtPlayer(el) {
             this.loading.style.display = 'block';
             this.loading.style.visibility = 'hidden';
         });
+
+        this.audioTag.addEventListener('loadstart', () => {
+            let src = this.getAudioSrc();
+            if (src) {
+                this.wavesurfer.load(src);
+            }
+        })
+    };
+
+    this.getAudioSrc = function() {
+        return this.audioTag.querySelector('source').getAttribute('src');
     };
 
     this.load = function(event) {
         event.target.removeEventListener(event.type, this.loadBind);
-        this.wavesurfer.load(this.src);
+        let src = this.getAudioSrc();
+        if (src) {
+            this.wavesurfer.load(src);
+        }
     }
 
     this.loadBind = this.load.bind(this);
@@ -177,7 +190,7 @@ function CtPlayer(el) {
     };
 
     this.updateProgress = function () {
-        var current = this.wavesurfer. getCurrentTime();
+        var current = this.wavesurfer.getCurrentTime();
         this.currentTime.textContent = this.formatTime(current);
     };
 

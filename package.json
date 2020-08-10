@@ -3,8 +3,9 @@
     "description": "Audio Player",
     "main": "",
     "authors": [
-        "Ivan Petukhov"
+        "ZvonokCom"
     ],
+    "version": "0.0.0",
     "homepage": "https://zvonok.com",
     "private": true,
     "ignore": [

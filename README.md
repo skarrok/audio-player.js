@@ -9,14 +9,14 @@ Usage
 
 <script src="audio-player.js"></script>
 <script>
-    player = new CtPlayer(document.querySelector(".audiopl-audio-player"));
+    player = new CtPlayer(document.querySelector(".ct-audio-player"));
     player.initPlayer();
 </script>
 ```
 
 or with jquery
 ```js
-$('.audiopl-audio-player').each(function() {
+$('.ct-audio-player').each(function() {
     player = new CtPlayer(this);
     player.initPlayer();
 });

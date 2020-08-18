@@ -127,12 +127,16 @@ function CtPlayer(el) {
             this.loading.style.visibility = 'hidden';
         });
 
-        this.audioTag.addEventListener('loadstart', () => {
+        if (this.audioTag.preload == 'auto') {
             let src = this.getAudioSrc();
             if (src) {
                 this.wavesurfer.load(src);
             }
-        })
+        }
+
+        if (this.audioTag.hasAttribute('autoplay')) {
+            this.wavesurfer.on('ready', this.wavesurfer.play.bind(this.wavesurfer))
+        }
     };
 
     this.getAudioSrc = function() {

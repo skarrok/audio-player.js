@@ -134,6 +134,13 @@ function CtPlayer(el) {
             }
         }
 
+        this.audioTag.addEventListener('loadstart', () => {
+            let src = this.getAudioSrc()
+            if (src) {
+                this.wavesurfer.load(src)
+            }
+        })
+
         if (this.audioTag.hasAttribute('autoplay')) {
             this.audioTag.pause()
             this.wavesurfer.on('ready', this.wavesurfer.play.bind(this.wavesurfer))

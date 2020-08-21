@@ -140,6 +140,10 @@ function CtPlayer(el) {
                 this.wavesurfer.load(src)
             } else {
                 this.wavesurfer.empty()
+                this.playPause.attributes.d.value = "M18 12L0 24V0"
+                this.wavesurfer.setCurrentTime(0)
+                this.currentTime.textContent = this.formatTime(0)
+                this.totalTime.textContent = this.formatTime(0)
             }
         })
 

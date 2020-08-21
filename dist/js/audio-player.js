@@ -138,6 +138,8 @@ function CtPlayer(el) {
             let src = this.getAudioSrc()
             if (src) {
                 this.wavesurfer.load(src)
+            } else {
+                this.wavesurfer.empty()
             }
         })
 

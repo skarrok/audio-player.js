@@ -13,6 +13,6 @@
         "example"
     ],
     "dependencies": {
-        "wavesurfer.js": "git://github.com/katspaugh/wavesurfer.js.git#e4d17d260c2090432d6892d04eca153f80374a7c"
+        "wavesurfer.js": "https://github.com/katspaugh/wavesurfer.js.git#e4d17d260c2090432d6892d04eca153f80374a7c"
     }
 }

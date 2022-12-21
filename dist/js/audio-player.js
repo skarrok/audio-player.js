@@ -8,7 +8,7 @@ function CtPlayer(el) {
         <div class="audiopl-spinner"></div>
     </div>
     <div class="audiopl-play-pause-btn">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="24" viewBox="0 0 18 24">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="24" viewBox="0 0 18 24" class="audiopl-play-pause-svg">
             <path fill="#566574" fill-rule="evenodd" d="M18 12L0 24V0" class="audiopl-play-pause-icon"/>
         </svg>
     </div>
@@ -25,7 +25,7 @@ function CtPlayer(el) {
 
     <div class="audiopl-volume">
         <div class="audiopl-volume-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="audiopl-speaker-svg">
                 <path fill="#566574" fill-rule="evenodd" d="M14.667 0v2.747c3.853 1.146 6.666 4.72 6.666 8.946 0 4.227-2.813 7.787-6.666 8.934v2.76C20 22.173 24 17.4 24 11.693 24 5.987 20 1.213 14.667 0zM18 11.693c0-2.36-1.333-4.386-3.333-5.373v10.707c2-.947 3.333-2.987 3.333-5.334zm-18-4v8h5.333L12 22.36V1.027L5.333 7.693H0z" class="audiopl-speaker"/>
             </svg>
         </div>
@@ -60,8 +60,20 @@ function CtPlayer(el) {
     this.speaker = el.querySelector('.audiopl-speaker')
     this.downloadBtn = el.querySelector('.audiopl-download-btn')
 
-    this.draggableClasses = ['ct-pin']
+    this.draggableClasses = ['audiopl-pin']
     this.currentlyDragged = null
+
+    this.volumePanelClasses = [
+        'audiopl-speaker-svg',
+        'audiopl-speaker',
+        'audiopl-volume-controls',
+        'audiopl-slider',
+        'audiopl-pin',
+    ]
+    this.playPauseClasses = [
+        'audiopl-play-pause-svg',
+        'audiopl-play-pause-icon',
+    ]
 
     this.initPlayer = function () {
         this.container.addEventListener('mousedown', this.mouseDown.bind(this))
@@ -73,6 +85,13 @@ function CtPlayer(el) {
         this.volumeBtn.addEventListener('click', () => {
             this.volumeBtn.classList.toggle('open')
             this.volumeControls.classList.toggle('hidden')
+        })
+
+        window.addEventListener('click', (event) => {
+            if(!this.isVolumePanel(event.target) && this.volumeBtn.classList.contains('open')) {
+                this.volumeBtn.classList.toggle('open')
+                this.volumeControls.classList.toggle('hidden');
+            }
         })
 
         window.addEventListener('resize', this.directionAware.bind(this))
@@ -90,6 +109,7 @@ function CtPlayer(el) {
 
         this.wavesurfer = WaveSurfer.create({
             container: this.container.querySelector('.audiopl-wave-form'),
+            backend: 'MediaElement',
             height: 50,
             normalize: true,
             barWidth: 3,
@@ -284,12 +304,19 @@ function CtPlayer(el) {
         }
     }
 
+    this.isVolumePanel = function (el) {
+        let classes = Array.from(el.classList)
+        if(this.volumePanelClasses.some(panelClass => classes.indexOf(panelClass) !== -1))
+            return true
+        return this.playPauseClasses.some(panelClass => classes.indexOf(panelClass) !== -1)
+    }
+
     this.directionAware = function () {
         if(window.innerHeight < 250) {
             this.volumeControls.style.bottom = '-54px'
             this.volumeControls.style.left = '54px'
         } else if(el.offsetTop < 154) {
-            this.volumeControls.style.bottom = '-164px'
+            this.volumeControls.style.bottom = '-140px'
             this.volumeControls.style.left = '-3px'
         } else {
             this.volumeControls.style.bottom = '52px'

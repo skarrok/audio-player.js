@@ -116,6 +116,7 @@
   background-color: rgba(0, 0, 0, 0.62);
   border-radius: 7px;
   position: absolute;
+  z-index: 1;
   left: -3px;
   bottom: 52px;
   flex-direction: column;

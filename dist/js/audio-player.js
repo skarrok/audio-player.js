@@ -121,7 +121,7 @@ function CtPlayer(el) {
         })
 
         this.wavesurfer.on('volume', this.updateVolume.bind(this))
-        this.wavesurfer.on('ready', () => {
+        this.wavesurfer.on('waveform-ready', () => {
             this.totalTime.textContent = this.formatTime(this.wavesurfer.getDuration())
         })
         this.wavesurfer.on('loading', () => {
@@ -130,7 +130,7 @@ function CtPlayer(el) {
             this.loading.style.display = 'block'
             this.downloadBtn.href = this.getAudioSrc()
         })
-        this.wavesurfer.on('ready', () => {
+        this.wavesurfer.on('waveform-ready', () => {
             this.playpauseBtn.style.display = 'block'
             this.loading.style.display = 'none'
         })
@@ -170,7 +170,7 @@ function CtPlayer(el) {
 
         if (this.audioTag.hasAttribute('autoplay')) {
             this.audioTag.pause()
-            this.wavesurfer.on('ready', this.wavesurfer.play.bind(this.wavesurfer))
+            this.wavesurfer.on('waveform-ready', this.wavesurfer.play.bind(this.wavesurfer))
         }
     }
 

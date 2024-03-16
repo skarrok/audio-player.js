@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://unpkg.com/wavesurfer.js@4.0.1/dist/wavesurfer.js"></script>
+        <script src="../dist/js/audio-player.js"></script>
+        <link href="../dist/css/audio-player.css" rel="stylesheet">
+    </head>
+
+    <body>
+
+        <h1>Audio Player Example</h1>
+
+        <div id="audio_example_id">
+            <audio preload>
+                <source src="example.wav" type="audio/wav">
+                Your browser doesn't support audio files
+            </audio>
+        </div>
+
+        <script>
+            let playerElem = document.getElementById('audio_example_id')
+            let player = new CtPlayer(playerElem)
+            player.initPlayer()
+        </script>
+
+    </body>
+</html>

@@ -1,0 +1,18 @@
+{
+    "name": "cabinet",
+    "description": "Audio Player",
+    "main": "",
+    "authors": [
+        "ZvonokCom"
+    ],
+    "version": "0.0.0",
+    "homepage": "https://zvonok.com",
+    "private": true,
+    "ignore": [
+        "**/.*",
+        "example"
+    ],
+    "dependencies": {
+        "wavesurfer.js": "https://github.com/katspaugh/wavesurfer.js.git#e4d17d260c2090432d6892d04eca153f80374a7c"
+    }
+}
